@@ -4,47 +4,14 @@ const session = require('express-session')
 const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
 
-///\/\/\/\/\
-
 const app = express()
 
 app.use (express.json())
 
-
-
 let user = []
 
-const doesExist = (username)=> {
-	let usernamewithsamename = users.filter ((user)=>{
-		return user.username === username
-	});
-	if (usernamewithsamename.length > 0) {
-		return true;
-	} else {
-		return false;
-	}	
-}
 
-const authenticatedUser = (username, password) =>{
-	let validusers = users.filter((user)=>{
-		return (user.username === username && user.password === password)
-		
-	});
-	if (validusers.length > 0) {
-		return true;		
-	} else {
-		return false;
-	}	
-}
-///\/\/\/\/\/\
-
-
-/*
-const app = express();
-
-app.use(express.json());
-*/
-app.use("/customer",session({secret:"choblya",resave: true, saveUninitialized: true}))
+app.use("/customer",session({secret:"customer_fingerprint",resave: true, saveUninitialized: true}))
 
 app.use("/customer/auth/*", function auth(req,res,next){
 //Write the authenication mechanism here
